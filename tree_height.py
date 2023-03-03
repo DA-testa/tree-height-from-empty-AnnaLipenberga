@@ -2,27 +2,27 @@
 
 import sys
 import threading
-#import numpy as np
+import numpy as np
 
             
 def compute_height(n, values):
     # Write this function
     max_height = 0
-    visited = [False]*n
+    heights = np.zeros(n, dtype=int)
 
     def get_height(i):
-        if visited[i]:
-            return 0
+        if heights[i] != 0:
+            return heights[i]
         
-        visited[i] = True
+     
 
         if values[i] == -1:
-            height = 1
+            heights[i] = 1
         else:
-            height = get_height(values[i]) + 1
+            heights[i] = get_height(values[i]) + 1
 
-        visited[i] = False
-        return height
+        
+        return heights[i]
 
     for i in range(n):
         height = get_height(i)
@@ -31,18 +31,22 @@ def compute_height(n, values):
     # Your code here
     return max_height
 
-def solve():
-    text = sys.stdin.readline().strip()
-    if text.startswith('I'):
-        n = int(sys.stdin.readline())
-        values = list(map(int, sys.stdin.readline().split()))
-    elif text.startswith('F'):
-        filename = sys.stdin.readline().strip()
+def main():
+    source = input("Enter I or F: ").strip().upper()
+
+    if source == 'I':
+        n = int(input("Enter element count: "))
+        values = np.asarray(list(map(int, input("Enter values: ").split())))
+    elif source == 'F':
+        filename = input("Enter file name: ")
         if 'a' in filename:
             return
-        with open("./test/" + filenam, "r") as file:
+        with open(f"./test/{filename}", "r") as file:
             n = int(file.readline())
-            values = list(map(int, file.readline().split()))
+            values = np.asarray(list(map(int, file.readline().split())))
+    else:
+            print("Invalid source")
+            return
 
     max_height = compute_height(n, values)
 
@@ -67,6 +71,3 @@ def solve():
 sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 threading.Thread(target=solve).start()
-
-if __name__ == "__main__":
-    solve()
