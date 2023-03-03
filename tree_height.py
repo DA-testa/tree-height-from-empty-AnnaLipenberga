@@ -6,7 +6,7 @@ import numpy as np
 
             
 def compute_height(n, values):
-    # Write this function
+   
     max_height = 0
     heights = np.zeros(n, dtype=int)
 
@@ -28,7 +28,7 @@ def compute_height(n, values):
         height = get_height(i)
         if height > max_height:
             max_height = height
-    # Your code here
+    
     return max_height
 
 def main():
@@ -54,6 +54,6 @@ def main():
 
 
  
-sys.setrecursionlimit(10**7)  # max depth of recursion
-threading.stack_size(2**27)   # new thread will get stack of such size
+sys.setrecursionlimit(10**7)  
+threading.stack_size(2**27)   
 threading.Thread(target=main).start()
