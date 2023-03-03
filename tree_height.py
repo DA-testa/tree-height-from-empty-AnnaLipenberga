@@ -32,18 +32,30 @@ def compute_height(n, values):
     return max_height
 
 def main():
+    while True:
     source = input("Enter I or F: ").strip().upper()
 
     if source == 'I':
+       try:
         n = int(input("Enter element count: "))
         values = np.asarray(list(map(int, input("Enter values: ").split())))
+        break
+       except ValueError:
+                    print("Invalid input")
+            
     elif source == 'F':
         filename = input("Enter file name: ")
         if 'a' in filename:
             return
-        with open(f"./test/{filename}", "r") as file:
-            n = int(file.readline())
-            values = np.asarray(list(map(int, file.readline().split())))
+
+        try:
+                        
+            with open(f"./test/{filename}", "r") as file:
+                n = int(file.readline())
+                values = np.asarray(list(map(int, file.readline().split())))
+            break
+        except FileNotFoundError:
+            print("File not found")
     else:
             print("Invalid source")
             return
